@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="604.0" prefWidth="250.0" style="-fx-background-color: #101045;">
+         <children>
+            <Label fx:id="menuLabel" layoutX="14.0" layoutY="147.0" text="MENU" textFill="WHITE">
+               <font>
+                  <Font name="Louis George Café" size="15.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="logo" fitHeight="90.0" fitWidth="92.0" layoutX="79.0" layoutY="14.0">
+               <image>
+                  <Image url="@../Resources/Images/MariSci.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="dashboardBtn" layoutY="178.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="250.0" text="DASHBOARD" textFill="WHITE">
+               <font>
+                  <Font name="Louis George Café" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="attendanceBtn" layoutY="218.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="250.0" text="ATTENDANCE" textFill="WHITE">
+               <font>
+                  <Font name="Louis George Café" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="classRatingBtn" layoutY="258.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="250.0" text="CLASS RATING" textFill="WHITE">
+               <font>
+                  <Font name="Louis George Café" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="studentsBtn" layoutY="298.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="250.0" text="STUDENTS" textFill="WHITE">
+               <font>
+                  <Font name="Louis George Café" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="accountsBtn" layoutY="456.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="250.0" text="ACCOUNTS" textFill="WHITE">
+               <font>
+                  <Font name="Louis George Café" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="logoutBtn" layoutY="496.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" onAction="#handleLogout" prefWidth="250.0" text="LOGOUT" textFill="WHITE">
+               <font>
+                  <Font name="Louis George Café" size="18.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="250.0" prefHeight="604.0" prefWidth="652.0" style="-fx-background-color: #f8f6dd;">
+         <children>
+            <Pane fx:id="header" onMouseClicked="#handleButtonAction" prefHeight="129.0" prefWidth="654.0">
+               <children>
+                  <Label fx:id="welcome" layoutX="17.0" layoutY="42.0" text="Welcome back, Juan!">
+                     <font>
+                        <Font name="Louis George Café" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="username" layoutX="455.0" layoutY="14.0" text="Juan Dela Cruz">
+                     <font>
+                        <Font name="Louis George Café" size="20.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane fx:id="dropdownBtn" layoutX="451.0" layoutY="42.0" prefHeight="26.0" prefWidth="173.0" style="-fx-background-color: #ffffff;" visible="false">
+                     <children>
+                        <JFXButton fx:id="editProfile" prefHeight="25.0" prefWidth="173.0" style="-fx-background-color: #ffffff;" text="Edit Profile" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="usernameBtn" layoutX="597.0" layoutY="10.0" prefHeight="34.0" prefWidth="44.0">
+                     <children>
+                        <AnchorPane fx:id="upBtn" layoutY="3.0" onMouseClicked="#hide" prefHeight="28.0" prefWidth="37.0" visible="false">
+                           <children>
+                              <Polygon fx:id="dropdownBtnUp" layoutX="12.0" layoutY="40.0" points="-11.0, -23.0, 3.75, -23.000003814697266, -3.5, -31.0" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="downBtn" layoutY="3.0" onMouseClicked="#show" prefHeight="28.0" prefWidth="37.0">
+                           <children>
+                              <Polygon fx:id="dropdownBtnDown" layoutX="12.0" layoutY="33.0" points="-11.0, -23.0, 3.75, -23.000003814697266, -3.5, -15.5" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="presentDate" layoutX="161.0" layoutY="91.0" text="FRIDAY, 27 SEPTEMBER 2019">
+                     <font>
+                        <Font name="Königsberg" size="28.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="dashboardPane" layoutY="128.0" prefHeight="476.0" prefWidth="652.0">
+               <children>
+                  <Rectangle fx:id="container1" arcHeight="40.0" arcWidth="40.0" fill="#fae538" height="136.0" layoutX="59.0" layoutY="14.0" stroke="#fae538" strokeType="INSIDE" width="227.0">
+                     <effect>
+                        <DropShadow color="#8d8888" height="70.0" radius="34.5" width="70.0" />
+                     </effect>
+                  </Rectangle>
+                  <Label fx:id="noOfStudentsEnrolled" layoutX="113.0" layoutY="20.0" text="2000">
+                     <font>
+                        <Font name="Louis George Café" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="studentsEnrolledLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="80.0" layoutY="84.0" prefHeight="55.0" prefWidth="185.0" text="STUDENTS ENROLLED" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Louis George Café" size="22.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#2653af" height="136.0" layoutX="365.0" layoutY="14.0" stroke="#2653af" strokeType="INSIDE" width="227.0">
+                     <effect>
+                        <DropShadow color="#8d8888" height="70.0" radius="34.5" width="70.0" />
+                     </effect>
+                  </Rectangle>
+                  <Label fx:id="noOfStudentsPresent" layoutX="430.0" layoutY="20.0" text="1992" textFill="WHITE">
+                     <font>
+                        <Font name="Louis George Café" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="studentsPresentLabel" alignment="CENTER" layoutX="392.0" layoutY="77.0" prefHeight="64.0" prefWidth="173.0" text="STUDENTS PRESENT" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Louis George Café" size="22.0" />
+                     </font>
+                  </Label>
+                  <BorderPane fx:id="chart" layoutX="56.0" layoutY="170.0" prefHeight="252.0" prefWidth="539.0" style="-fx-background-color: #FFFFFF;">
+                     <top>
+                        <Label fx:id="enrolledPerGradeLevelLabel" alignment="CENTER" prefHeight="15.0" prefWidth="539.0" style="-fx-background-color: #322f2f;" text="TOTAL NO. OF STUDENTS ENROLLED PER GRADE LEVEL" textFill="WHITE" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Louis George Café" size="18.0" />
+                           </font>
+                        </Label>
+                     </top>
+                     <center>
+                        <BarChart fx:id="enrolledPerGradeLevelChart" BorderPane.alignment="CENTER">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis side="LEFT" />
+                           </yAxis>
+                        </BarChart>
+                     </center>
+                     <effect>
+                        <DropShadow color="#8d8888" height="70.0" radius="34.5" width="70.0" />
+                     </effect>
+                  </BorderPane>
+                  <Hyperlink fx:id="linkToCSVFile" layoutX="454.0" layoutY="440.0" text="Click Here to Download CSV File" visited="true" />
+               </children>
+            </Pane>
+            <Pane fx:id="attendancePane" layoutY="128.0" onMouseClicked="#handleButtonAction" prefHeight="476.0" prefWidth="652.0" visible="false">
+               <children>
+                  <JFXComboBox fx:id="gradeLevel" labelFloat="true" layoutX="30.0" layoutY="24.0" prefHeight="25.0" prefWidth="164.0" promptText="Grade Level" />
+                  <JFXComboBox fx:id="section" labelFloat="true" layoutX="215.0" layoutY="24.0" prefHeight="25.0" prefWidth="102.0" promptText="Section" />
+                  <JFXDatePicker fx:id="datePicker" defaultColor="#2c7dd3" layoutX="338.0" layoutY="24.0" prefHeight="25.0" prefWidth="179.0" promptText="Select Date" />
+                  <JFXButton fx:id="generateBtn" layoutX="532.0" layoutY="24.0" onMouseClicked="#handleGenerate" style="-fx-background-color: #5ebd12;" text="GENERATE" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <ScrollPane fx:id="attendanceTablePane" layoutX="56.0" layoutY="75.0" prefHeight="370.0" prefWidth="539.0">
+                     <content>
+                        <TableView fx:id="attendanceTable" prefHeight="365.0" prefWidth="536.0">
+                           <columns>
+                              <TableColumn fx:id="nameAttendanceColumn" prefWidth="286.0" style="-fx-background-color: #f9c455;" text="NAME" />
+                              <TableColumn fx:id="statusAttendanceColumn" prefWidth="117.0" style="-fx-background-color: #f9c455;" text="STATUS" />
+                              <TableColumn fx:id="timeInAttendanceColumn" prefWidth="66.0" style="-fx-background-color: f9c455;" text="TIME IN" />
+                              <TableColumn fx:id="timeOutAttendanceColumn" prefWidth="65.0" style="-fx-background-color: f9c455;" text="TIME OUT" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+            <Pane fx:id="classRatingPane" layoutY="128.0" prefHeight="476.0" prefWidth="652.0" visible="false">
+               <children>
+                  <JFXComboBox fx:id="gradeLevelClassRating" labelFloat="true" layoutX="9.0" layoutY="15.0" prefHeight="31.0" prefWidth="102.0" promptText="Grade Level" style="-fx-font-size: 15;" />
+                  <JFXComboBox fx:id="sectionClassRating" labelFloat="true" layoutX="125.0" layoutY="15.0" prefHeight="31.0" prefWidth="76.0" promptText="Section" style="-fx-font-size: 15;" />
+                  <JFXComboBox fx:id="subjectClassRating" labelFloat="true" layoutX="216.0" layoutY="15.0" prefHeight="31.0" prefWidth="164.0" promptText="Subject" style="-fx-font-size: 15;" />
+                  <JFXComboBox fx:id="teacherClassRating" labelFloat="true" layoutX="393.0" layoutY="15.0" prefHeight="31.0" prefWidth="158.0" promptText="Teacher" style="-fx-font-size: 15;" />
+                  <JFXButton fx:id="generateBtnClassRating" layoutX="567.0" layoutY="18.0" style="-fx-background-color: #5ebd12;" text="Generate" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <ScrollPane fx:id="scrollPaneClassRating" layoutX="25.0" layoutY="70.0" prefHeight="384.0" prefWidth="605.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 2;">
+                     <content>
+                        <BorderPane fx:id="classRatingBorderPane" prefHeight="376.0" prefWidth="597.0">
+                           <top>
+                              <Label fx:id="classRatingChartLabel" alignment="CENTER" prefHeight="26.0" prefWidth="615.0" style="-fx-background-color: #322f2f;" text="CLASS RATING" textFill="WHITE" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font name="Louis George Café" size="22.0" />
+                                 </font>
+                              </Label>
+                           </top>
+                           <center>
+                              <BarChart fx:id="classRatingChart" BorderPane.alignment="CENTER">
+                                 <xAxis>
+                                    <CategoryAxis side="BOTTOM" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis side="LEFT" />
+                                 </yAxis>
+                              </BarChart>
+                           </center>
+                        </BorderPane>
+                     </content>
+                  </ScrollPane>
+               </children></Pane>
+            <Pane fx:id="studentsPane" layoutY="128.0" prefHeight="476.0" prefWidth="652.0" visible="false">
+               <children>
+                  <JFXComboBox fx:id="gradeLevelStudents" layoutX="6.0" layoutY="16.0" prefHeight="31.0" prefWidth="102.0" promptText="Grade Level" style="-fx-font-size: 15;" />
+                  <JFXComboBox fx:id="sectionStudents" layoutX="118.0" layoutY="16.0" prefHeight="31.0" prefWidth="76.0" promptText="Section" style="-fx-font-size: 15;" />
+                  <JFXComboBox fx:id="subjectStudents" layoutX="206.0" layoutY="16.0" prefHeight="31.0" prefWidth="164.0" promptText="Subject" style="-fx-font-size: 15;" />
+                  <JFXComboBox fx:id="teacherStudents" layoutX="379.0" layoutY="16.0" prefHeight="31.0" prefWidth="179.0" promptText="Teacher" style="-fx-font-size: 15;" />
+                  <JFXButton fx:id="generateBtnStudents" layoutX="561.0" layoutY="19.0" style="-fx-background-color: #5ebd12;" text="Generate" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <ScrollPane fx:id="scrollPaneStudents" layoutX="25.0" layoutY="74.0" prefHeight="378.0" prefWidth="605.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 2;" visible="false">
+                     <content>
+                        <AnchorPane fx:id="studentsAnchorPane" prefHeight="369.0" prefWidth="599.0">
+                           <children>
+                              <JFXRadioButton fx:id="firstGradingRadioBtn" layoutX="14.0" layoutY="7.0" onAction="#handleRadioButton" text="1st Grading">
+                                 <font>
+                                    <Font name="Louis George Café" size="16.0" />
+                                 </font>
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="toggleGroup" />
+                                 </toggleGroup>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="secondGradingRadioBtn" layoutX="160.0" layoutY="7.0" onAction="#handleRadioButton" text="2nd Grading" toggleGroup="$toggleGroup">
+                                 <font>
+                                    <Font name="Louis George Café" size="16.0" />
+                                 </font>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="thirdGradingRadioBtn" layoutX="318.0" layoutY="7.0" onAction="#handleRadioButton" text="3rd Grading" toggleGroup="$toggleGroup">
+                                 <font>
+                                    <Font name="Louis George Café" size="16.0" />
+                                 </font>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="fourthGradingRadioBtn" layoutX="478.0" layoutY="7.0" onAction="#handleRadioButton" text="4th Grading" toggleGroup="$toggleGroup">
+                                 <font>
+                                    <Font name="Louis George Café" size="16.0" />
+                                 </font>
+                              </JFXRadioButton>
+                              <BorderPane fx:id="firstGradingBorderPane" layoutX="12.0" layoutY="40.0" prefHeight="317.0" prefWidth="574.0" style="-fx-background-color: #FFFFFF;" visible="false">
+                                 <top>
+                                    <Label fx:id="firstGradingLabel" alignment="CENTER" prefHeight="21.0" prefWidth="588.0" style="-fx-background-color: #322f2f;" text="FIRST GRADING PERIOD" textFill="WHITE" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font name="Louis George Café" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </top>
+                                 <center>
+                                    <TableView fx:id="firstGradingTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <columns>
+                                          <TableColumn prefWidth="341.0" style="-fx-background-color: #f9c455;" text="NAME" />
+                                          <TableColumn minWidth="0.0" prefWidth="134.0" style="-fx-background-color: #f9c455;" text="QUIZ 1" />
+                                          <TableColumn prefWidth="98.0" style="-fx-background-color: #f9c455;" text="RATING" />
+                                       </columns>
+                                    </TableView>
+                                 </center>
+                              </BorderPane>
+                              <BorderPane fx:id="secondGradingBorderPane" layoutX="12.0" layoutY="40.0" prefHeight="317.0" prefWidth="574.0" style="-fx-background-color: #FFFFFF;" visible="false">
+                                 <top>
+                                    <Label fx:id="secondGradingLabel" alignment="CENTER" prefHeight="21.0" prefWidth="588.0" style="-fx-background-color: #322f2f;" text="SECOND GRADING PERIOD" textFill="WHITE" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font name="Louis George Café" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </top>
+                                 <center>
+                                    <TableView fx:id="secondGradingTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <columns>
+                                          <TableColumn prefWidth="341.0" style="-fx-background-color: #f9c455;" text="NAME" />
+                                          <TableColumn minWidth="0.0" prefWidth="134.0" style="-fx-background-color: #f9c455;" text="QUIZ 1" />
+                                          <TableColumn prefWidth="98.0" style="-fx-background-color: #f9c455;" text="RATING" />
+                                       </columns>
+                                    </TableView>
+                                 </center>
+                              </BorderPane>
+                              <BorderPane fx:id="thirdGradingBorderPane" layoutX="12.0" layoutY="40.0" prefHeight="317.0" prefWidth="574.0" style="-fx-background-color: #FFFFFF;" visible="false">
+                                 <top>
+                                    <Label fx:id="thirdGradingLabel" alignment="CENTER" prefHeight="21.0" prefWidth="588.0" style="-fx-background-color: #322f2f;" text="THIRD GRADING PERIOD" textFill="WHITE" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font name="Louis George Café" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </top>
+                                 <center>
+                                    <TableView fx:id="thirdGradingTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <columns>
+                                          <TableColumn prefWidth="341.0" style="-fx-background-color: #f9c455;" text="NAME" />
+                                          <TableColumn minWidth="0.0" prefWidth="134.0" style="-fx-background-color: #f9c455;" text="QUIZ 1" />
+                                          <TableColumn prefWidth="98.0" style="-fx-background-color: #f9c455;" text="RATING" />
+                                       </columns>
+                                    </TableView>
+                                 </center>
+                              </BorderPane>
+                              <BorderPane fx:id="fourthGradingBorderPane" layoutX="12.0" layoutY="40.0" prefHeight="317.0" prefWidth="574.0" style="-fx-background-color: #FFFFFF;" visible="false">
+                                 <top>
+                                    <Label fx:id="fourthGradingLabel" alignment="CENTER" prefHeight="21.0" prefWidth="588.0" style="-fx-background-color: #322f2f;" text="FOURTH GRADING PERIOD" textFill="WHITE" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font name="Louis George Café" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </top>
+                                 <center>
+                                    <TableView fx:id="fourthGradingTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                       <columns>
+                                          <TableColumn prefWidth="341.0" style="-fx-background-color: #f9c455;" text="NAME" />
+                                          <TableColumn minWidth="0.0" prefWidth="134.0" style="-fx-background-color: #f9c455;" text="QUIZ 1" />
+                                          <TableColumn prefWidth="98.0" style="-fx-background-color: #f9c455;" text="RATING" />
+                                       </columns>
+                                    </TableView>
+                                 </center>
+                              </BorderPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+                  <ScrollPane fx:id="scrollPaneStudents1" layoutX="25.0" layoutY="74.0" prefHeight="378.0" prefWidth="605.0" style="-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 2;">
+                     <content>
+                        <TableView fx:id="studentDetailsTable" prefHeight="370.0" prefWidth="852.0">
+                           <columns>
+                              <TableColumn fx:id="firstNameColumn" prefWidth="108.0" text="FIRST NAME" />
+                              <TableColumn fx:id="middleNameColumn" prefWidth="110.0" text="MIDDLE NAME"/>
+                              <TableColumn fx:id="lastNameColumn" prefWidth="116.0"  text="LAST NAME" />
+                              <TableColumn fx:id="lrnColumn" minWidth="0.0" prefWidth="161.0"  text="LRN" />
+                              <TableColumn fx:id="birthdayColumn" prefWidth="151.0"  text="BIRTHDAY" />
+                              <TableColumn fx:id="emailColumn" minWidth="-Infinity" prefWidth="205.0" text="EMAIL" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children></Pane>
+            <Pane fx:id="accountsPane" layoutY="128.0" prefHeight="476.0" prefWidth="652.0" visible="false">
+               <children>
+                  <Label fx:id="instructorsAccountsLabel" layoutX="14.0" layoutY="12.0" text="INSTRUCTORS ACCOUNTS">
+                     <font>
+                        <Font name="Louis George Café" size="18.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="enableInstructorsBtn" layoutX="297.0" layoutY="8.0" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #2653af; -fx-background-radius: 20;" text="ENABLE" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="disableInstructorsBtn" layoutX="414.0" layoutY="8.0" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #bf5555; -fx-background-radius: 20;" text="DISABLE" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="resetInstructorsBtn" layoutX="547.0" layoutY="8.0" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #787575; -fx-background-radius: 20;" text="RESET" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <ScrollPane fx:id="instructorsAccountScrollPane" layoutX="21.0" layoutY="38.0" prefHeight="200.0" prefWidth="611.0">
+                     <content>
+                        <TableView fx:id="instructorsAccountTable" prefHeight="200.0" prefWidth="596.0">
+                           <columns>
+                              <TableColumn fx:id="nameInstructorsAccountColumn" prefWidth="282.0" style="-FX-BACKGROUND-COLOR: #f9c455;" text="NAME" />
+                              <TableColumn fx:id="usernameInstructorsAccountColumn" prefWidth="164.0" style="-FX-BACKGROUND-COLOR: #f9c455;" text="USERNAME" />
+                              <TableColumn fx:id="positionInstructorsAccountColumn" prefWidth="149.0" style="-FX-BACKGROUND-COLOR: #f9c455;" text="POSITION" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+                  <Label fx:id="studentsAccountsLabel" layoutX="14.0" layoutY="250.0" text="STUDENTS ACCOUNTS">
+                     <font>
+                        <Font name="Louis George Café" size="18.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="enableStudentsBtn" layoutX="289.0" layoutY="248.0" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #2653af; -fx-background-radius: 20;" text="ENABLE" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="disableStudentsBtn" layoutX="406.0" layoutY="248.0" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #bf5555; -fx-background-radius: 20;" text="DISABLE" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="resetStudentsBtn" layoutX="539.0" layoutY="248.0" prefHeight="25.0" prefWidth="76.0" style="-fx-background-color: #787575; -fx-background-radius: 20;" text="RESET" textFill="WHITE">
+                     <font>
+                        <Font name="Königsberg" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <ScrollPane fx:id="studentsAccountScrollPane" layoutX="21.0" layoutY="276.0" prefHeight="192.0" prefWidth="611.0">
+                     <content>
+                        <TableView fx:id="studentsAccountTable" prefHeight="196.0" prefWidth="596.0">
+                           <columns>
+                              <TableColumn fx:id="nameStudentsAccountColumn" prefWidth="251.0" style="-FX-BACKGROUND-COLOR: #f9c455;" text="NAME" />
+                              <TableColumn fx:id="usernameStudentsAccountColumn" prefWidth="154.0" style="-FX-BACKGROUND-COLOR: #f9c455;" text="USERNAME" />
+                              <TableColumn fx:id="gradeLevelStudentsAccountColumn" prefWidth="117.0" style="-FX-BACKGROUND-COLOR: #f9c455;" text="GRADE LEVEL" />
+                              <TableColumn fx:id="sectionStudentsAccountColumn" prefWidth="73.0" style="-fx-background-color: #f9c455;" text="SECTION" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
