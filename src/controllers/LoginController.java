@@ -3,6 +3,7 @@ package controllers;
 import App.App;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import helper.PopUp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import models.User;
@@ -15,6 +16,9 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
     private App app;
+    private PopUp popUp;
+
+
     @FXML
     private JFXTextField user;
     @FXML
@@ -29,23 +33,10 @@ public class LoginController implements Initializable {
     }
 
     public void handleLogin(){
-//        user.setUsername(user.getText());
-//        user.setPassword(password.getText());
-
-//        ArrayList<String> teacherData = new ArrayList<>();
-
-//        try {
-//            teacherData = user.getTeacher();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-
 
         String username = user.getText();
         String inputpassword = password.getText();
 
-//        System.out.println(username);
-//        System.out.println(password);
         HashMap<String, String> user = loginService.GetUser(username, inputpassword);
 
         if(user.size() > 0){ //check if there is fetched user from database
@@ -66,7 +57,7 @@ public class LoginController implements Initializable {
 //                System.out.println("You are not a principal");
             }
         } else {
-            System.out.println("You are not registered!");
+            app.DisplayError("Account not Registered");
         }
 
     }

@@ -12,10 +12,13 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
+
+import java.awt.desktop.ScreenSleepEvent;
 import java.io.File;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,6 +31,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -36,7 +40,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
+import models.AttendanceRecord;
+import models.Student;
 import models.User;
+import services.AttendanceServices;
+import services.DashboardServices;
+import services.RecordServices;
+import services.StudentServices;
 
 /**
  * FXML Controller class
@@ -45,7 +55,7 @@ import models.User;
  */
 public class TeacherDashboardController implements Initializable {
     @FXML
-    private JFXComboBox<Label> gradeLevel, section, selectSubjectRecords, selectGradingRecords, gradeLevelClassRating, 
+    private JFXComboBox gradeLevel, section, selectSubjectRecords, selectGradingRecords, gradeLevelClassRating,
             sectionClassRating, subjectClassRating, teacherClassRating, 
             gradeLevelStudents, sectionStudents, subjectStudents, teacherStudents;
     @FXML
@@ -86,12 +96,17 @@ public class TeacherDashboardController implements Initializable {
             instructorsAccountScrollPane, studentsAccountScrollPane,  scrollPaneStudents1;
     @FXML
     private TableView attendanceTable, firstGradingTable, secondGradingTable,  
-            thirdGradingTable, fourthGradingTable, instructorsAccountTable, studentsAccountTable, 
-            studentDetailsTable;
+            thirdGradingTable, fourthGradingTable, instructorsAccountTable, studentsAccountTable;
+
+    @FXML
+    private TableView<Student> studentDetailsTable;
         
     @FXML
-    private TableColumn firstNameColumn, middleNameColumn, lastNameColumn, lrnColumn, 
-            birthdayColumn, emailColumn, nameAttendanceColumn, statusAttendanceColumn, 
+    private TableColumn<Student, String> firstNameColumn, middleNameColumn, lastNameColumn, lrnColumn,
+            birthdayColumn, emailColumn;
+
+    @FXML
+    private TableColumn nameAttendanceColumn, statusAttendanceColumn,
             timeInAttendanceColumn, timeOutAttendanceColumn, nameInstructorsAccountColumn, 
             usernameInstructorsAccountColumn, positionInstructorsAccountColumn, 
             nameStudentsAccountColumn, usernameStudentsAccountColumn, gradeLevelStudentsAccountColumn, 
@@ -116,6 +131,10 @@ public class TeacherDashboardController implements Initializable {
 
     private App app;
     private User admin;
+    private StudentServices studentServices = new StudentServices();
+    private RecordServices recordServices = new RecordServices();
+    private AttendanceServices attendance = new AttendanceServices();
+    private DashboardServices ds = new DashboardServices();
 
     public TeacherDashboardController(User admin){
         this.admin=admin;
@@ -139,8 +158,10 @@ public class TeacherDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        String welcomeMessage = "Welcome back, "+admin.getFirstName() + " " + admin.getLastName();
+
         username.setText(admin.getFirstName());
-        welcome.setText("Welcome back, "+admin.getFirstName());
+        welcome.setText(welcomeMessage);
 
         calendar = Calendar.getInstance();
 
@@ -153,6 +174,10 @@ public class TeacherDashboardController implements Initializable {
         day = format.format(date);
 
         presentDate.setText(day+", " + month);
+
+
+        noOfStudentsEnrolled.setText(String.valueOf(ds.totalNumOfStudents()));
+        noOfStudentsPresent.setText(String.valueOf(ds.totalNumOfPresent()));
 
 
         gradeLevel.getItems().add(new Label("Grade 7"));
@@ -184,7 +209,33 @@ public class TeacherDashboardController implements Initializable {
         dropdownBtn.setVisible(false);
         upBtn.setVisible(false);
         String style = "-fx-background-color: #ffc13d; -fx-text-fill: #000000;";
-                dashboardBtn.setStyle(style);
+        dashboardBtn.setStyle(style);
+
+        /**
+         * Students Table
+         */
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
+        middleNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("middleName"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
+        lrnColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("LRN"));
+        birthdayColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("birthday"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("email"));
+
+        studentDetailsTable.setItems(studentServices.GetStudents());
+
+        /**
+         * Attendance Table
+         */
+        nameAttendanceColumn.setCellValueFactory(new PropertyValueFactory<AttendanceRecord, String>("name"));
+        statusAttendanceColumn.setCellValueFactory(new PropertyValueFactory<AttendanceRecord, String>("status"));
+        timeInAttendanceColumn.setCellValueFactory(new PropertyValueFactory<AttendanceRecord, String>("time_in"));
+        timeOutAttendanceColumn.setCellValueFactory(new PropertyValueFactory<AttendanceRecord, String>("time_out"));
+
+        attendanceTable.setItems(attendance.GetAttendance());
+
+
+
+
     }    
 
     @FXML
@@ -223,6 +274,12 @@ public class TeacherDashboardController implements Initializable {
             studentsPane.setVisible(false);
             uploadFilePane.setVisible(false);
 
+            /**
+             * Attendance Table
+             */
+
+            attendanceTable.setItems(attendance.GetAttendance());
+
         }
         else if (event.getSource() == classRatingBtn){
             header.setVisible(true);
@@ -256,6 +313,12 @@ public class TeacherDashboardController implements Initializable {
                 uploadFileBtn.setStyle(null);
 
             uploadFilePane.setVisible(false);
+
+            /**
+             * Students Table
+             */
+
+            studentDetailsTable.setItems(studentServices.GetStudents());
 
         }
         else if (event.getSource() == uploadFileBtn){
@@ -323,15 +386,24 @@ public class TeacherDashboardController implements Initializable {
 
     @FXML
     private void handleGenerate(MouseEvent event) {
-        System.out.println(dateFromPicker.getValue());
-        System.out.println(dateToPicker.getValue());
+//        String grade_level = String.valueOf(gradeLevel.getSelectionModel().getSelectedItem());
+//        String inputSection = (String) section.getValue();
+//        String dateFrom  = dateFromPicker.getValue().toString();
+//        String dateTo = dateToPicker.getValue();
+
+//        System.out.println(gradeLevel.getValue();
+
+//        System.out.println(gradeLevel.getValue().getClass().getName());
+//        System.out.println(section.getValue().getClass().getName());
+//        System.out.println(dateFromPicker.getValue());
+//        System.out.println((dateToPicker.getValue()));
     }
 
     @FXML
     private void handleRadioButton(ActionEvent event) {
         if (event.getSource() == firstGradingRadioBtn){
             firstGradingBorderPane.toFront();
-            firstGradingBorderPane.setVisible(true);
+        firstGradingBorderPane.setVisible(true);
             secondGradingBorderPane.setVisible(false);
             thirdGradingBorderPane.setVisible(false);
             fourthGradingBorderPane.setVisible(false);
@@ -377,21 +449,32 @@ public class TeacherDashboardController implements Initializable {
     private void chooseFile(MouseEvent event) {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
-        new FileChooser.ExtensionFilter("CSV Files", "*.pdf"));
+        new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
 //        File selectedFile = fc.showOpenDialog(null);
         this.selectedFile = fc.showOpenDialog(null);
         if (selectedFile != null){
-            recordsListview.getItems().add(selectedFile.getName());
-            registrationListview.getItems().add(selectedFile.getName());
-        }
-        else {
+            if(recordsListview.getItems().size()==0) {
+                recordsListview.getItems().add(selectedFile.getName());
+                registrationListview.getItems().add(selectedFile.getName());
+            }else{
+                System.out.println("Please remove or upload the first file first!");
+            }
+        } else {
             System.out.println("File is not valid.");
         }
     }
 
     @FXML
-    private void handleUpload(MouseEvent event) {
-        System.out.println(selectedFile.getAbsolutePath());
+    public void handleUploadRegistration(MouseEvent event) {
+        if(studentServices.addMultipleStudent(selectedFile.getPath())) {
+            System.out.println("Successfully added all students!");
+            registrationListview.getItems().remove(0);
+        }
+    }
+
+    public void handleUploadRecords(){
+//        registrationListview.getItems().remove(0);
+        System.out.println(selectQuizRecords.getText());
     }
     
 }

@@ -180,10 +180,10 @@
                      <content>
                         <TableView fx:id="attendanceTable" prefHeight="365.0" prefWidth="536.0">
                            <columns>
-                              <TableColumn fx:id="nameAttendanceColumn" prefWidth="286.0" style="-fx-background-color: #f9c455;" text="NAME" />
-                              <TableColumn fx:id="statusAttendanceColumn" prefWidth="117.0" style="-fx-background-color: #f9c455;" text="STATUS" />
-                              <TableColumn fx:id="timeInAttendanceColumn" prefWidth="66.0" style="-fx-background-color: f9c455;" text="TIME IN" />
-                              <TableColumn fx:id="timeOutAttendanceColumn" prefWidth="65.0" style="-fx-background-color: f9c455;" text="TIME OUT" />
+                              <TableColumn fx:id="nameAttendanceColumn" prefWidth="286.0"  text="NAME" />
+                              <TableColumn fx:id="statusAttendanceColumn" prefWidth="117.0" text="STATUS" />
+                              <TableColumn fx:id="timeInAttendanceColumn" prefWidth="66.0"  text="TIME IN" />
+                              <TableColumn fx:id="timeOutAttendanceColumn" prefWidth="65.0"  text="TIME OUT" />
                            </columns>
                         </TableView>
                      </content>

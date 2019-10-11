@@ -26,8 +26,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import models.AttendanceRecord;
 import models.Student;
 import models.User;
+import services.AttendanceServices;
 import services.DashboardServices;
 import services.StudentServices;
 
@@ -91,20 +93,23 @@ public class AdminDashboardController implements Initializable {
     private ScrollPane attendanceTablePane, scrollPaneClassRating, scrollPaneStudents,
             instructorsAccountScrollPane, studentsAccountScrollPane,  scrollPaneStudents1;
 
-//    @FXML
-//    private TableView studentsAccountTable, attendanceTable, firstGradingTable, secondGradingTable,
-//            thirdGradingTable, fourthGradingTable, instructorsAccountTable;
+    @FXML
+    private TableView studentsAccountTable, firstGradingTable, secondGradingTable,
+            thirdGradingTable, fourthGradingTable, instructorsAccountTable;
+
+    @FXML
+    private TableView<AttendanceRecord> attendanceTable;
 
     @FXML
     private TableView<Student> studentDetailsTable;
 
-//    @FXML
-//    private TableColumn<Student, String> middleNameColumn, lastNameColumn, lrnColumn,
-//            birthdayColumn, emailColumn, nameAttendanceColumn, statusAttendanceColumn,
-//            timeInAttendanceColumn, timeOutAttendanceColumn, nameInstructorsAccountColumn,
-//            usernameInstructorsAccountColumn, positionInstructorsAccountColumn,
-//            nameStudentsAccountColumn, usernameStudentsAccountColumn, gradeLevelStudentsAccountColumn,
-//            sectionStudentsAccountColumn;
+    @FXML
+    private TableColumn nameInstructorsAccountColumn, usernameInstructorsAccountColumn, positionInstructorsAccountColumn,
+            nameStudentsAccountColumn, usernameStudentsAccountColumn, gradeLevelStudentsAccountColumn,
+            sectionStudentsAccountColumn;
+
+    @FXML
+    private TableColumn<AttendanceRecord, String> nameAttendanceColumn, statusAttendanceColumn, timeInAttendanceColumn, timeOutAttendanceColumn;
 
 
     @FXML
@@ -147,6 +152,8 @@ public class AdminDashboardController implements Initializable {
 
     private File selectedFile;
     private StudentServices studentServices = new StudentServices();
+    private AttendanceServices attendance = new AttendanceServices();
+
     private DashboardServices ds = new DashboardServices();
     private Calendar calendar;
     private SimpleDateFormat format;
@@ -165,8 +172,10 @@ public class AdminDashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        String welcomeMessage = "Welcome back, "+admin.getFirstName() + " " + admin.getLastName();
+
         username.setText(admin.getFirstName());
-        welcome.setText("Welcome back, "+admin.getFirstName());
+        welcome.setText(welcomeMessage);
 
         calendar = Calendar.getInstance();
 
@@ -226,14 +235,9 @@ public class AdminDashboardController implements Initializable {
         dashboardBtn.setStyle(style);
 
 
-
-//        firstNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("first_name"));
-//        middleNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("middle_name"));
-//        lastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("last_name"));
-//        lrnColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lrn"));
-//        birthdayColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("bday"));
-//        emailColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("Email"));
-
+        /**
+         * Students Table
+         */
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("firstName"));
         middleNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("middleName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("lastName"));
@@ -242,7 +246,22 @@ public class AdminDashboardController implements Initializable {
         emailColumn.setCellValueFactory(new PropertyValueFactory<Student, String>("email"));
 
         studentDetailsTable.setItems(studentServices.GetStudents());
-//        System.out.println(studentServices.GetStudents());
+
+
+        /**
+         * Attendance Table
+         */
+        nameAttendanceColumn.setCellValueFactory(new PropertyValueFactory<AttendanceRecord, String>("name"));
+        statusAttendanceColumn.setCellValueFactory(new PropertyValueFactory<AttendanceRecord, String>("status"));
+        timeInAttendanceColumn.setCellValueFactory(new PropertyValueFactory<AttendanceRecord, String>("time_in"));
+        timeOutAttendanceColumn.setCellValueFactory(new PropertyValueFactory<AttendanceRecord, String>("time_out"));
+
+        attendanceTable.setItems(attendance.GetAttendance());
+
+        /**
+         * Class Rating Table
+         */
+
 
     }
 
