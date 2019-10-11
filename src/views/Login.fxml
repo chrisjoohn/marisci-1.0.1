@@ -17,34 +17,34 @@
             <Image url="@../Resources/Images/login.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="user" layoutX="322.0" layoutY="281.0" prefHeight="37.0" prefWidth="270.0" promptText="User ID">
+      <JFXTextField fx:id="user" layoutX="322.0" layoutY="281.0" onKeyPressed="#handleEnter" prefHeight="37.0" prefWidth="270.0" promptText="User ID">
          <font>
             <Font name="Louis George Café" size="20.0" />
          </font>
       </JFXTextField>
-      <JFXPasswordField fx:id="password" layoutX="319.0" layoutY="340.0" prefHeight="37.0" prefWidth="270.0" promptText="Password">
+      <JFXPasswordField fx:id="password" layoutX="319.0" layoutY="340.0" onKeyPressed="#handleEnter" prefHeight="37.0" prefWidth="270.0" promptText="Password">
          <font>
             <Font name="Louis George Café" size="20.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton onAction="#handleLogin" fx:id="login" layoutX="402.0" layoutY="399.0" prefHeight="28.0" prefWidth="102.0" ripplerFill="#66b6e8" style="-fx-background-radius: 20; -fx-background-color: #2653af;" text="LOG IN" textFill="WHITE">
+      <JFXButton fx:id="login" layoutX="402.0" layoutY="399.0" onAction="#handleLogin" prefHeight="28.0" prefWidth="102.0" ripplerFill="#66b6e8" style="-fx-background-radius: 20; -fx-background-color: #2653af;" text="LOG IN" textFill="WHITE">
          <font>
             <Font name="Königsberg" size="14.0" />
          </font>
       </JFXButton>
-      <Hyperlink onAction="#handleCreate" fx:id="link" layoutX="388.0" layoutY="448.0" text="CREATE ACCOUNT" textFill="#612c35" underline="true">
+      <Hyperlink fx:id="link" layoutX="388.0" layoutY="448.0" onAction="#handleCreate" text="CREATE ACCOUNT" textFill="#612c35" underline="true">
          <font>
             <Font name="Louis George Café" size="14.0" />
          </font>
       </Hyperlink>
-      <Label fx:id="label" layoutX="862.0" layoutY="2.0" text="X">
+      <Label fx:id="close" layoutX="862.0" layoutY="-4.0" text="x">
          <font>
-            <Font name="Königsberg" size="18.0" />
+            <Font size="24.0" />
          </font>
       </Label>
       <Label fx:id="message">
          <font>
-            <Font/>
+            <Font />
          </font>
       </Label>
    </children>

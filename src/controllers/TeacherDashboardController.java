@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -120,6 +121,8 @@ public class TeacherDashboardController implements Initializable {
     private Hyperlink linkToCSVFile;
     
     private File selectedFile;
+    private StudentServices studentServices = new StudentServices();
+    private DashboardServices ds = new DashboardServices();
     private Calendar calendar;
     private SimpleDateFormat format;
     private String month, day, time;
@@ -131,10 +134,8 @@ public class TeacherDashboardController implements Initializable {
 
     private App app;
     private User admin;
-    private StudentServices studentServices = new StudentServices();
     private RecordServices recordServices = new RecordServices();
     private AttendanceServices attendance = new AttendanceServices();
-    private DashboardServices ds = new DashboardServices();
 
     public TeacherDashboardController(User admin){
         this.admin=admin;
@@ -175,6 +176,17 @@ public class TeacherDashboardController implements Initializable {
 
         presentDate.setText(day+", " + month);
 
+        noOfStudentsEnrolled.setText(String.valueOf(ds.totalNumOfStudents()));
+        noOfStudentsPresent.setText(String.valueOf(ds.totalNumOfPresent()));
+
+        XYChart.Series series1 = new XYChart.Series<>();
+
+        series1.getData().add(new XYChart.Data("Grade 7", ds.totalNumStudPerGradeLevel(7)));
+        series1.getData().add(new XYChart.Data("Grade 8", ds.totalNumStudPerGradeLevel(8)));
+        series1.getData().add(new XYChart.Data("Grade 9", ds.totalNumStudPerGradeLevel(9)));
+        series1.getData().add(new XYChart.Data("Grade 10", ds.totalNumStudPerGradeLevel(10)));
+
+        enrolledPerGradeLevelChart.getData().addAll(series1);
 
         noOfStudentsEnrolled.setText(String.valueOf(ds.totalNumOfStudents()));
         noOfStudentsPresent.setText(String.valueOf(ds.totalNumOfPresent()));
@@ -236,7 +248,8 @@ public class TeacherDashboardController implements Initializable {
 
 
 
-    }    
+    }
+
 
     @FXML
     private void handleButtonAction(MouseEvent event) {
