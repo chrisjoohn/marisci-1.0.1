@@ -1,10 +1,13 @@
 package controllers;
 
 import App.App;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import models.User;
 import services.LoginService;
 
@@ -19,7 +22,9 @@ public class LoginController implements Initializable {
     private JFXTextField user;
     @FXML
     private JFXPasswordField password;
-
+    @FXML
+    private JFXButton login;
+    @FXML
     private User Admin;
 
     private LoginService loginService = new LoginService();
@@ -100,5 +105,8 @@ public class LoginController implements Initializable {
 //
 //        }
 //    }
+    public void handleEnter (KeyEvent event){
+        if (event.getCode() == KeyCode.ENTER) handleLogin();
+    }
 
 }

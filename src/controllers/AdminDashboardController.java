@@ -133,7 +133,7 @@ public class AdminDashboardController implements Initializable {
     private JFXDatePicker datePicker;
 
     @FXML
-    private Hyperlink linkToCSVFile;
+    private Hyperlink linkToCSVFile = new Hyperlink("src/Resources/CSV/Format.csv");
 
 
     @FXML

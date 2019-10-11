@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -37,6 +38,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import models.User;
+import services.DashboardServices;
+import services.StudentServices;
 
 /**
  * FXML Controller class
@@ -105,6 +108,8 @@ public class TeacherDashboardController implements Initializable {
     private Hyperlink linkToCSVFile;
     
     private File selectedFile;
+    private StudentServices studentServices = new StudentServices();
+    private DashboardServices ds = new DashboardServices();
     private Calendar calendar;
     private SimpleDateFormat format;
     private String month, day, time;
@@ -154,6 +159,17 @@ public class TeacherDashboardController implements Initializable {
 
         presentDate.setText(day+", " + month);
 
+        noOfStudentsEnrolled.setText(String.valueOf(ds.totalNumOfStudents()));
+        noOfStudentsPresent.setText(String.valueOf(ds.totalNumOfPresent()));
+
+        XYChart.Series series1 = new XYChart.Series<>();
+
+        series1.getData().add(new XYChart.Data("Grade 7", ds.totalNumStudPerGradeLevel(7)));
+        series1.getData().add(new XYChart.Data("Grade 8", ds.totalNumStudPerGradeLevel(8)));
+        series1.getData().add(new XYChart.Data("Grade 9", ds.totalNumStudPerGradeLevel(9)));
+        series1.getData().add(new XYChart.Data("Grade 10", ds.totalNumStudPerGradeLevel(10)));
+
+        enrolledPerGradeLevelChart.getData().addAll(series1);
 
         gradeLevel.getItems().add(new Label("Grade 7"));
         gradeLevel.getItems().add(new Label("Grade 8"));
@@ -185,7 +201,7 @@ public class TeacherDashboardController implements Initializable {
         upBtn.setVisible(false);
         String style = "-fx-background-color: #ffc13d; -fx-text-fill: #000000;";
                 dashboardBtn.setStyle(style);
-    }    
+    }
 
     @FXML
     private void handleButtonAction(MouseEvent event) {
